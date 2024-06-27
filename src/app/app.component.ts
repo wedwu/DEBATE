@@ -122,7 +122,7 @@ export class AppComponent implements OnInit {
     }
     const sortedValues = arr.toSorted((a: number, b: number) => a - b)
     localStorage.setItem('selectedIndex', JSON.stringify(sortedValues))
-    this.BINGO = this.containsBingo(sortedValues) ? 'BINGO' : ''
+    this.BINGO = this.containsBingo(sortedValues) ? '' : '' //.. remove 'BINGO' since it is buggy
   }
 
   containsBingo = (arr: any) => {
