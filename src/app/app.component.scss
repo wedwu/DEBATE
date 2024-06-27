@@ -8,6 +8,11 @@
   width: 800px;
   margin: 0 auto;
 
+  .bingo {
+    color: white;
+    font-weight: bolder;
+  }
+
   div {
     display: flex;
     flex-direction: row;
@@ -22,21 +27,26 @@
       border-radius: 1px;
       border: 1px solid #000;
       background-color: #E7E7E7;
+      border-radius: 20px;
+      border: #e6890d solid 4px;
+      box-shadow: 5px 4px 5px 2px rgb(46 51 72 / 60%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: "arial-black";
+      font-family: "arial-black" !important;
       padding: 0;
       font-size: 22px;
-      margin: 10px auto 0 auto;
+      margin: 5px auto -3px auto;
       text-align: center;
       cursor: pointer;
 
       &:hover {
-        background: pink
+        background: #ffc636cf;
+        box-shadow: 1px 1px 1px 1px rgb(46 51 72 / 60%);
       }
       &.select {
-        background: pink
+        background: #ffc636cf;
+        box-shadow: 1px 1px 1px 1px rgb(46 51 72 / 60%);
       }
       span {
         padding: 20px;
