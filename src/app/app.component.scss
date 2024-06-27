@@ -1,0 +1,59 @@
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 800px;
+  margin: 0 auto;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+
+    &.squares {
+      width: 150px;
+      height: 150px;
+      color: #4D4D4D;
+      border-radius: 1px;
+      border: 1px solid #000;
+      background-color: #E7E7E7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "arial-black";
+      padding: 0;
+      font-size: 22px;
+      margin: 10px auto 0 auto;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        background: pink
+      }
+      &.select {
+        background: pink
+      }
+      span {
+        padding: 20px;
+        word-break: break-word;
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  button {
+    margin-top: 20px;
+    background: rebeccapurple;
+    color: white;
+    padding: 10px;
+    border: 0;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
