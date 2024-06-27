@@ -54,6 +54,7 @@ export class AppComponent implements OnInit {
     {word: 'Criminal', selected: false},
     {word: 'Inflation', selected: false},
     {word: 'CornPop', selected: false},
+    {word: 'Threat to Democracy', selected: false},
     {word: 'Trial', selected: false}
   ]
 
