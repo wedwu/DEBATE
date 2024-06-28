@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { inject } from "@vercel/analytics";
 
 @Component({
   selector: 'app-root',
@@ -68,6 +69,7 @@ export class AppComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    inject()
     this.cardRandom = this.getRandomUniqueItems(this.cardDefaults, 25)
     localStorage.setItem('selected', JSON.stringify(this.cardRandom))
     localStorage.setItem('selectedIndex', JSON.stringify(this.selectedIndex))
