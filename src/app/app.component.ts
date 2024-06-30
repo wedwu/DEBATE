@@ -17,9 +17,8 @@ export class AppComponent implements OnInit {
   public title: string = 'bingo-app';
   public cardDefault: any[any] = cardDefaults
   public cardRandom: any[any] = []
-  public selected: any
   public selectedIndexNumber: number = 12
-  public selectedIndex: [any] = [12]
+  public selectedIndex: [number] = [this.selectedIndexNumber]
   public FREESQUARE: string = 'FREE SQUARE'
   public BINGO: string = ''
 
@@ -33,7 +32,7 @@ export class AppComponent implements OnInit {
     localStorage.setItem('selectedIndex', JSON.stringify(this.selectedIndex))
   }
 
-  getRandomUniqueItems = (arr: any[], count: any = 25) => {
+  getRandomUniqueItems = (arr: any[], count: number = 25) => {
     let result = []
     let used: any = {}
     while (result.length < count) {
@@ -54,9 +53,9 @@ export class AppComponent implements OnInit {
     return result;
   }
 
-  onSelect = (n: any, i: number) => {
+  onSelect = (n: any[any], i: number) => {
     if (n.word === this.FREESQUARE) return
-    this.cardRandom = this.cardRandom.map((word: any) => {
+    this.cardRandom = this.cardRandom.map((word: any[any]) => {
       if (word.word === n.word) {
         word.selected = !!!word.selected
       }
@@ -73,17 +72,17 @@ export class AppComponent implements OnInit {
     this.popIfExists(res, i)
   }
 
-  popIfExists = (arr: any, number: string | number) => {
+  popIfExists = (arr: any[any], number: string | number) => {
     let newNumber: string | number = number
     newNumber = _.padStart(newNumber.toString(), 2, '0')
     const index = arr.indexOf(newNumber)
     index !== -1 ? arr.splice(index, 1) : arr.push(newNumber)
     const sortedValues = arr.toSorted((a: number, b: number) => a - b)
     localStorage.setItem('selectedIndex', JSON.stringify(sortedValues))
-    this.BINGO = this.containsBingo(sortedValues) ? 'BINGO' : '' //.. remove 'BINGO' since it is buggy
+    this.BINGO = this.containsBingo(sortedValues) ? 'BINGO' : ''
   }
 
-  containsBingo = (arr: any) => {
+  containsBingo = (arr: any[any]) => {
     const arrString = arr.join(' ')
     if (regex1.test(arrString) ||
         regex2.test(arrString) ||
