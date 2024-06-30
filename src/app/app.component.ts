@@ -2,7 +2,8 @@ import _ from 'lodash'
 import { Component, OnInit } from '@angular/core'
 import { CommonModule, NgFor, NgIf } from '@angular/common'
 import { RouterOutlet } from '@angular/router'
-import { inject } from "@vercel/analytics"
+import { inject } from '@vercel/analytics'
+import { regex1, regex2, regex3, regex4, regex5, regex6, regex7, regex8, regex9, regex10, regex11, regex12 } from './regex'
 import cardDefaults from './data.json'
 
 @Component({
@@ -84,19 +85,6 @@ export class AppComponent implements OnInit {
 
   containsBingo = (arr: any) => {
     const arrString = arr.join(' ')
-    const regex1: any = /(?=.*00)(?=.*01)(?=.*02)(?=.*03)(?=.*04)/
-    const regex2: any = /(?=.*05)(?=.*06)(?=.*07)(?=.*08)(?=.*09)/
-    const regex3: any = /(?=.*10)(?=.*11)(?=.*12)(?=.*13)(?=.*14)/
-    const regex4: any = /(?=.*15)(?=.*16)(?=.*17)(?=.*18)(?=.*19)/
-    const regex5: any = /(?=.*20)(?=.*21)(?=.*22)(?=.*23)(?=.*24)/
-    const regex6: any = /(?=.*00)(?=.*05)(?=.*10)(?=.*15)(?=.*20)/
-    const regex7: any = /(?=.*01)(?=.*06)(?=.*11)(?=.*16)(?=.*21)/
-    const regex8: any = /(?=.*02)(?=.*07)(?=.*12)(?=.*17)(?=.*22)/
-    const regex9: any = /(?=.*03)(?=.*08)(?=.*13)(?=.*18)(?=.*23)/
-    const regex10: any = /(?=.*04)(?=.*09)(?=.*14)(?=.*19)(?=.*24)/ 
-    const regex11: any = /(?=.*00)(?=.*06)(?=.*12)(?=.*18)(?=.*24)/ 
-    const regex12: any = /(?=.*04)(?=.*08)(?=.*12)(?=.*16)(?=.*20)/ 
-
     if (regex1.test(arrString) ||
         regex2.test(arrString) ||
         regex3.test(arrString) ||
