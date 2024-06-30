@@ -15,18 +15,20 @@
     top: 40%;
     font-size: 21rem;
     text-shadow: 10px 7px 11px #0d1428;
-    transform: rotate(-45deg);
-    animation-name: example;
-    animation-duration: 4s;
+    animation-name: spin;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
   }
 
-  @keyframes example {
-    0%   {left:0px; top:0px;}
-    25%  {left:200px; top:0px;}
-    50%  {left:200px; top:200px;}
-    75%  {left:0px; top:200px;}
-    100% {left:0px; top:0px;}
-  }
+  @keyframes spin {
+    from {
+      transform:rotate(0deg);
+    }
+    to {
+      transform:rotate(360deg);
+    }
+}
 
   div {
     display: flex;
