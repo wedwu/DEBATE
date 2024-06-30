@@ -1,8 +1,9 @@
-import _ from 'lodash';
-import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { inject } from "@vercel/analytics";
+import _ from 'lodash'
+import { Component, OnInit } from '@angular/core'
+import { CommonModule, NgFor, NgIf } from '@angular/common'
+import { RouterOutlet } from '@angular/router'
+import { inject } from "@vercel/analytics"
+import cardDefaults from './data.json'
 
 @Component({
   selector: 'app-root',
@@ -13,52 +14,7 @@ import { inject } from "@vercel/analytics";
 })
 export class AppComponent implements OnInit {
   public title: string = 'bingo-app';
-
-  public cardDefaults: any[any] = [
-    {word: 'Ukraine', selected: false},
-    {word: 'Israel', selected: false},
-    {word: 'Taiwan', selected: false},
-    {word: 'Nuclear war', selected: false},
-    {word: 'Russia', selected: false},
-    {word: 'China', selected: false},
-    {word: 'Iran', selected: false},
-    {word: 'Border', selected: false},
-    {word: 'JFK', selected: false},
-    {word: 'Aliens', selected: false},
-    {word: 'Poop pants', selected: false},
-    {word: 'Fall down', selected: false},
-    {word: 'Gibberish', selected: false},
-    {word: 'Where am I?', selected: false},
-    {word: 'Who am I?', selected: false},
-    {word: 'Who are you?', selected: false},
-    {word: 'Bidenomics', selected: false},
-    {word: 'Covid', selected: false},
-    {word: 'Pandemic', selected: false},
-    {word: 'Federal reserve', selected: false},
-    {word: 'Julian Assange', selected: false},
-    {word: 'NATO', selected: false},
-    {word: 'Putin', selected: false},
-    {word: 'Xi Ring Ping', selected: false},
-    {word: 'Kim Jon un', selected: false},
-    {word: 'Netanyahu', selected: false},
-    {word: 'Lebanon', selected: false},
-    {word: 'Syria', selected: false},
-    {word: 'Walk out', selected: false},
-    {word: 'Climate change', selected: false},
-    {word: 'Texts', selected: false},
-    {word: 'Immigration', selected: false},
-    {word: 'Border control', selected: false},
-    {word: 'Voting', selected: false},
-    {word: 'ISIS', selected: false},
-    {word: 'Impeachment', selected: false},
-    {word: 'Come On, Man!', selected: false},
-    {word: 'Criminal', selected: false},
-    {word: 'Inflation', selected: false},
-    {word: 'CornPop', selected: false},
-    {word: 'Threat to Democracy', selected: false},
-    {word: 'Trial', selected: false}
-  ]
-
+  public cardDefault: any[any] = cardDefaults
   public cardRandom: any[any] = []
   public selected: any
   public selectedIndexNumber: number = 12
@@ -70,7 +26,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     inject()
-    this.cardRandom = this.getRandomUniqueItems(this.cardDefaults, 25)
+    console.log('cardDefault ==> ', this.cardDefault)
+    this.cardRandom = this.getRandomUniqueItems(this.cardDefault, 25)
     localStorage.setItem('selected', JSON.stringify(this.cardRandom))
     localStorage.setItem('selectedIndex', JSON.stringify(this.selectedIndex))
   }
@@ -100,9 +57,8 @@ export class AppComponent implements OnInit {
     if (n.word === this.FREESQUARE) return
     this.cardRandom = this.cardRandom.map((word: any) => {
       if (word.word === n.word) {
-       word.selected = !!!word.selected       
-     }
-      word.word = word.word
+        word.selected = !!!word.selected
+      }
       return word
     })
     localStorage.setItem('selected', JSON.stringify(this.cardRandom))
@@ -116,61 +72,43 @@ export class AppComponent implements OnInit {
     this.popIfExists(res, i)
   }
 
-  popIfExists = (arr: any, number: number) => {
-    const index = arr.indexOf(number)
-    if (index !== -1) {
-      arr.splice(index, 1)
-    } else {
-      arr.push(number)   
-    }
+  popIfExists = (arr: any, number: string | number) => {
+    let newNumber: string | number = number
+    newNumber = _.padStart(newNumber.toString(), 2, '0')
+    const index = arr.indexOf(newNumber)
+    index !== -1 ? arr.splice(index, 1) : arr.push(newNumber)
     const sortedValues = arr.toSorted((a: number, b: number) => a - b)
     localStorage.setItem('selectedIndex', JSON.stringify(sortedValues))
-    this.BINGO = this.containsBingo(sortedValues) ? '' : '' //.. remove 'BINGO' since it is buggy
+    this.BINGO = this.containsBingo(sortedValues) ? 'BINGO' : '' //.. remove 'BINGO' since it is buggy
   }
 
   containsBingo = (arr: any) => {
-    const arrString = arr.join('')
-    const regex1: any = /(?=.*0)(?=.*1)(?=.*2)(?=.*3)(?=.*4)/
-    const regex2: any = /(?=.*5)(?=.*6)(?=.*7)(?=.*8)(?=.*9)/
+    const arrString = arr.join(' ')
+    const regex1: any = /(?=.*00)(?=.*01)(?=.*02)(?=.*03)(?=.*04)/
+    const regex2: any = /(?=.*05)(?=.*06)(?=.*07)(?=.*08)(?=.*09)/
     const regex3: any = /(?=.*10)(?=.*11)(?=.*12)(?=.*13)(?=.*14)/
     const regex4: any = /(?=.*15)(?=.*16)(?=.*17)(?=.*18)(?=.*19)/
     const regex5: any = /(?=.*20)(?=.*21)(?=.*22)(?=.*23)(?=.*24)/
-    const regex6: any = /(?=.*0)(?=.*5)(?=.*10)(?=.*15)(?=.*20)/
-    const regex7: any = /(?=.*1)(?=.*6)(?=.*11)(?=.*16)(?=.*21)/
-    const regex8: any = /(?=.*2)(?=.*7)(?=.*12)(?=.*17)(?=.*22)/
-    const regex9: any = /(?=.*3)(?=.*8)(?=.*13)(?=.*18)(?=.*23)/
-    const regex10: any = /(?=.*4)(?=.*9)(?=.*14)(?=.*19)(?=.*24)/ 
-    const regex11: any = /(?=.*0)(?=.*6)(?=.*12)(?=.*18)(?=.*24)/ 
-    const regex12: any = /(?=.*4)(?=.*8)(?=.*12)(?=.*16)(?=.*20)/ 
+    const regex6: any = /(?=.*00)(?=.*05)(?=.*10)(?=.*15)(?=.*20)/
+    const regex7: any = /(?=.*01)(?=.*06)(?=.*11)(?=.*16)(?=.*21)/
+    const regex8: any = /(?=.*02)(?=.*07)(?=.*12)(?=.*17)(?=.*22)/
+    const regex9: any = /(?=.*03)(?=.*08)(?=.*13)(?=.*18)(?=.*23)/
+    const regex10: any = /(?=.*04)(?=.*09)(?=.*14)(?=.*19)(?=.*24)/ 
+    const regex11: any = /(?=.*00)(?=.*06)(?=.*12)(?=.*18)(?=.*24)/ 
+    const regex12: any = /(?=.*04)(?=.*08)(?=.*12)(?=.*16)(?=.*20)/ 
 
-    if (regex1.test(arrString)) {
-      return true
-    } else if (regex2.test(arrString)) {
-      return true
-    } else if (regex3.test(arrString)) {
-      return true
-    } else if (regex4.test(arrString)) {
-      return true
-    } else if (regex5.test(arrString)) {
-      return true
-    } else if (regex6.test(arrString)) {
-      if (arrString === '10121520' || arrString === '510121520')return false
-      return true
-    } else if (regex7.test(arrString)) {
-      if (arrString === '11121621' || arrString === '611121621')return false
-      return true
-    } else if (regex8.test(arrString)) {
-      if (arrString === '121722' || arrString === '7121722')return false
-      return true
-    } else if (regex9.test(arrString)) {
-      if (arrString === '12131823' || arrString === '812131823')return false
-      return true
-    } else if (regex10.test(arrString)) {
-      if (arrString === '12141924' || arrString === '912141924')return false
-      return true
-    } else if (regex11.test(arrString)) {
-      return true
-    } else if (regex12.test(arrString)) {
+    if (regex1.test(arrString) ||
+        regex2.test(arrString) ||
+        regex3.test(arrString) ||
+        regex4.test(arrString) ||
+        regex5.test(arrString) ||
+        regex6.test(arrString) ||
+        regex7.test(arrString) ||
+        regex8.test(arrString) ||
+        regex9.test(arrString) ||
+        regex10.test(arrString) ||
+        regex11.test(arrString) ||
+        regex12.test(arrString)) {
       return true
     }
     return false
@@ -178,6 +116,7 @@ export class AppComponent implements OnInit {
 
   onClick = () => {
     localStorage.removeItem('selected')
+    localStorage.removeItem('selectedIndex')
     location.reload()
   }
 
