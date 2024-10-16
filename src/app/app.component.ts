@@ -4,7 +4,7 @@ import { CommonModule, NgFor, NgIf } from '@angular/common'
 import { RouterOutlet } from '@angular/router'
 import { inject } from '@vercel/analytics'
 import { regex1, regex2, regex3, regex4, regex5, regex6, regex7, regex8, regex9, regex10, regex11, regex12 } from './regex'
-import cardDefaults from './data.json'
+import cardDefaults from './election.json'
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   public title: string = 'bingo-app';
   public cardDefault: any[any] = cardDefaults
   public cardRandom: any[any] = []
+  public count: number = 25
   public selectedIndexNumber: number = 12
   public selectedIndex: [number] = [this.selectedIndexNumber]
   public FREESQUARE: string = 'FREE SQUARE'
@@ -27,12 +28,12 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     inject()
     console.log('cardDefault ==> ', this.cardDefault)
-    this.cardRandom = this.getRandomUniqueItems(this.cardDefault, 25)
+    this.cardRandom = this.getRandomUniqueItems(this.cardDefault, this.count)
     localStorage.setItem('selected', JSON.stringify(this.cardRandom))
     localStorage.setItem('selectedIndex', JSON.stringify(this.selectedIndex))
   }
 
-  getRandomUniqueItems = (arr: any[], count: number = 25) => {
+  getRandomUniqueItems = (arr:[{word: string; selected: boolean}], count: number) => {
     let result = []
     let used: any = {}
     while (result.length < count) {
@@ -53,9 +54,9 @@ export class AppComponent implements OnInit {
     return result;
   }
 
-  onSelect = (n: any[any], i: number) => {
+  onSelect = (n: {word: string; selected: boolean}, i: number) => {
     if (n.word === this.FREESQUARE) return
-    this.cardRandom = this.cardRandom.map((word: any[any]) => {
+    this.cardRandom = this.cardRandom.map((word: {word: string; selected: boolean}) => {
       if (word.word === n.word) {
         word.selected = !!!word.selected
       }
@@ -102,11 +103,9 @@ export class AppComponent implements OnInit {
   }
 
   onClick = () => {
-    localStorage.removeItem('selected')
-    localStorage.removeItem('selectedIndex')
+    localStorage.removeItem('selected, selectedIndex')
     location.reload()
   }
-
 }
 
 
